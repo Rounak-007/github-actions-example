@@ -12,4 +12,9 @@ public class DemoController {
     public String welcome() {
         return "Welcome to Github actions Demo!!";
     }
+
+    @GetMapping("/test")
+    public String test(){
+        return "Testing this out!!";
+    }
 }
