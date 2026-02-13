@@ -27,8 +27,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn clean install
+
+      #      - name: Build with Maven
+      #        run: mvn clean install
+
+      # This will fail the pipeline if tests don't pass
+      - name: Run Unit Tests
+        run: mvn test
+
+      # Skip tests here because we just ran them
+      - name: Build Package
+        run: mvn package -DskipTests
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -57,3 +66,5 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/my-spring-app:latest
+          cache-from: type=gha # Pulls cache from GitHub Actions
+          cache-to: type=gha,mode=max # Exports cache to GitHub Actions
