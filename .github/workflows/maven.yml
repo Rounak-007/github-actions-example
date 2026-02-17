@@ -65,6 +65,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-spring-app:latest
+#          tags: ${{ secrets.DOCKER_USERNAME }}/my-spring-app:latest
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/testing-github-actions:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/testing-github-actions:latest
           cache-from: type=gha # Pulls cache from GitHub Actions
           cache-to: type=gha,mode=max # Exports cache to GitHub Actions
